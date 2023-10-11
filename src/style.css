@@ -1,0 +1,23 @@
+.mc-table-sort-style {
+    font-weight: bolder;
+    background-color: #0D47A1;
+}
+
+#mcPageNav a {
+    color: #0D47A1;
+}
+
+#mcPageNav a:hover {
+    font-weight: bolder;
+    background-color: #0D47A1;
+}
+
+#mcPageNav a:active {
+    font-weight: bolder;
+    background-color: #0c5460;
+}
+
+.mc-current-page {
+    font-weight: bolder;
+    text-decoration: underline;
+}
