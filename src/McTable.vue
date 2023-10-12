@@ -73,7 +73,7 @@ import McTableNoData from "./McTableNoData.vue";
 import DatatableUpdate from "./templates/DatatableUpdate.vue";
 import DatatableDelete from "./templates/DatatableDelete.vue";
 import DatatableCustom from "./templates/DatatableCustom.vue";
-import { sortBy } from "lodash"; // TODO: extract/use sortBy as standalone function?
+import { sortBy } from "lodash";
 import { computed, inject, ref, unref } from "vue";
 import type {
   DataField, EventType, FieldItemInfo, ItemData, ItemTaskType, ObjectType, PermitSaveDelete, PermittedEvents,
