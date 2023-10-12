@@ -1,6 +1,5 @@
 {
   "name": "@mconnect/mc-data-table",
-  "private": true,
   "version": "0.1.0",
   "description": "mConnect DataTable UI Component",
   "type": "module",
