@@ -1,10 +1,3 @@
-
-export interface ObjectRefType {
-    [key: string]: any;
-}
-
-export type ObjectType = ObjectRefType | object;
-
 export interface ActionParamType {
     [key: string]: any;         // fieldName: fieldValue, must match fieldType (re: validate) in model definition
 }

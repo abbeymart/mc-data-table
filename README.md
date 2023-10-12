@@ -1,18 +1,85 @@
-# Vue 3 + TypeScript + Vite
+# @mconnect/mcdatatable
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+- Datatable UI Component
+- See test folder and other packages' test folders for test cases / scenarios and usage
 
-## Recommended IDE Setup
+## Installation
+```js
+npm i @mconnect/mcdatatable
+```
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+# mConnect Datatable
 
-## Type Support For `.vue` Imports in TS
+- Smart UI datatable, built using vue3 composition API
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+## Installation
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+- copy the datatable folder to your application scr/component folder
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+## Components and Features
+
+- *screen short*
+- McDataTable: entry point for defining the table options, structure and contents
+- McPageLimit: select the records per page
+- McPageNav: page navigation features - first, last, previous, next and subset of intermediary pages
+- McTable: The table structure (column headers) and contents
+- McTableMessage: indicate the current table records information, by page navigation and records total
+- McTableNoData: a component to display when there are no records to display
+- McTableSearch: to filter table contents/records, by search keyword(s)
+
+## Usage Specifications
+
+- import mcDatatable component as a component into your UI view/page or as an app-plugin
+- activate the mcDatatable component in your UI template, and provide the required and/or optional props
+- *usage example*
+- Required and optional specifications
+- McDataTable: *props* (required and optional)
+- Required props: dataFields (Array<object>) and dataItems (Array<object>)
+- Optional props: dataTotal, paging, pageStart, pageLimits (Array<number>), tableStyle, sortStyle
+- *dataFields*: => dataSpecs.ts
+- *dataItems*: => provider data records
+  props     : {
+  dataFields: {
+  type    : Array,
+  required: true,
+  },
+  dataItems : {
+  type    : Array,
+  required: true
+  },
+  dataTotal : {
+  type   : Number,
+  default: 0,
+  },
+  paging    : {
+  type   : Boolean,
+  default: true,
+  },
+  pageStart : {
+  type   : Number,
+  default: 1,
+  },
+  pageLimits: {
+  type   : Array,
+  default: () => [10, 20, 30, 50, 100, 200],
+  },
+  tableStyle: {
+  type   : Object,
+  default: () => {
+  return {
+  table      : "w3-table w3-striped w3-border w3-bordered w3-hoverable",
+  tableHeader: "w3-red",
+  tableBody  : "w3-hover",
+  }
+  },
+  },
+  sortStyle : {
+  type   : Object,
+  default: () => {
+  return {
+  asc : "fa fa-caret-up",
+  desc: "fa fa-caret-down",
+  }
+  },
+  },
+  },

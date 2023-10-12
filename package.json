@@ -2,7 +2,7 @@
   "name": "@mconnect/mc-data-table",
   "private": true,
   "version": "0.1.0",
-  "description": "mConnect Datatable UI Component",
+  "description": "mConnect DataTable UI Component",
   "type": "module",
   "files": [
     "dist"
@@ -15,12 +15,17 @@
       "import": "./dist/mc-data-table.js",
       "require": "./dist/mc-data-table.umd.js"
     },
-    "./dist/style.css": "./dist/style.css"
+    "./dist/style.css": {
+      "import": "./dist/style.css",
+      "require": "./dist/style.css"
+    }
   },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
   },
   "dependencies": {
     "vue": "^3.3.4"
@@ -34,7 +39,8 @@
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
     "vite-plugin-dts": "^3.6.0",
-    "vue-tsc": "^1.8.5"
+    "vue-tsc": "^1.8.5",
+    "vuepress": "^2.0.0-beta.67"
   },
   "repository": {
     "type": "git",

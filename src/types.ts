@@ -9,6 +9,8 @@ export interface ObjectType {
     [key: string]: any;
 }
 
+// export type ObjectType = ObjectRefType | object;
+
 export type Task = (item?: ObjectType | any) => any;
 export type TransformTask = ((item?: any) => any) | null;
 export type TaskUpdate = (item?: ObjectType) => any;
