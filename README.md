@@ -46,25 +46,207 @@ import type {DataField, DataFetchAlertResult} from "@mconnect/mc-data-table"
 ```vue
 
 <template>
-  <McDataTable v-if="dataItems.length > 0" data-fields="" data-items="" data-stats="" data-fetch-alert=""/>
+  <McDataTable v-if="dataItems.length > 0" :data-fields="dataFields" :data-items="dataItems" data-stats=""
+               data-fetch-alert=""/>
 
 </template>
 
 <script setup lang="ts">
-  import {McDataTable, McTableNoData} from "@mconnect/mc-data-table";
-  import type {DataField, DataFetchAlertResult, ObjectType} from "@mconnect/mc-data-table"
-  
-  import {ref} from "vue"
-  // McDataTable props
-  const dataItems = Array<ObjectType>([])
+  import { McDataTable, McTableNoData } from "@mconnect/mc-data-table";
+  import type { DataField, DataFetchAlertResult, ObjectType } from "@mconnect/mc-data-table"
+  import { computed, ref } from "vue"
+  import { GetRecordStats } from "./types";
 
-  // McExplorerDataTable props, in addition to McDataTable
+  // McDataTable props
+  // dataItems => records to be displayed in the mc-table | from API read request
+  const dataItems = Array<ObjectType>([])
+  const dataStats: GetRecordStats = ref({
+    
+  })
+
+  // Data may be fetch in batches for table-records view
+  // sample dataFetch for the next skip-limit records
+  const dataFetch = async (val: DataFetchAlertResult) => {
+    // store fetchAlertResult
+    fetchAlertResult.value = val
+    // perform the required crud-action/task
+    if (val.fetchAlert) {
+      await appStore.getAppRequest({
+        skip : val.skip,
+        limit: val.limit,
+      })
+    }
+  }
   
+  // McExplorerDataTable props, in addition to McDataTable
 
 
   // McTableNoData props
-  
-  
+  // dataItems count
+  // const itemsCount = ref(dataItems.length)
+  const itemsCount = computed(() => {
+    return dataItems.length
+  })
+
+  // Helper methods
+  const isProcessing = ref(false)   // use to deactive the save-button when an active transaction is in progress
+  const isMessage = ref(false)
+  const pageMessage = ref("")       // to set the messages for the componenent tasks
+  const itemId = ref("")    // current record ID, for update task
+  const itemsIds = ref<Array<string>>([])   // for delete task
+  const addItemId = (ids: Array<string>) => {
+    itemsIds.value = ids
+  }
+  const activeLabel = (isActive: boolean) => {
+    return isActive
+            ? `<span>${labels.yes} <i class="fa fa-check"></i></span>`
+            : `<span>${labels.no} <i class="fa fa-power-off"></i></span>`
+  }
+  const updateItem = async (itemRec: AppType) => {
+    // Route to detail page
+    await router.push({name: "appDetail", params: {itemId: itemRec.id || ""}});
+  }
+
+  async
+  deleteResponse = (res: RESTAPI
+  -UserDefined_Type
+  ) =>
+  {
+    // handle the deleteRecord request API response
+  }
+
+  const deleteItem = async (itemId: string) => {
+    isMessage.value = false;
+    pageMessage.value = "";
+    if (!itemId) {
+      isMessage.value = true;
+      pageMessage.value = "Item-ID is required to proceed";
+      return;
+    }
+    // perform delete/remove action
+    if (confirm(messages.confirmDelete)) {
+      isProcessing.value = true
+      isMessage.value = true;
+      pageMessage.value = "Removing record.......";
+      // API delete request (using axios/request helper deleteRecord function)
+      const crudParams: CrudParamsType = {
+        recordIds  : [itemId],
+        queryParams: {},
+      }
+      const res = await deleteRecord(apiPaths.APP_DELETE, crudParams);
+      // response
+      await deleteResponse(res);
+    } else {
+      isProcessing.value = false
+    }
+  }
+
+  // dataFields specified the specification to construct mc-data-table table header/columns and row-columns value
+  // See types definition for DataField to understand the meaning of the mandatory and optional? fields
+  const dataFields: Array<DataField> = [
+    {
+      name   : "select",
+      label  : "Select",
+      type   : "boolean",
+      default: false,
+      order  : 1,
+      sort   : false,
+      source : {
+        type   : "checkbox",
+        task   : addItemId,
+        params : ["id"],
+        data   : [],
+        bind   : itemsIds.value,
+        domComp: false
+      },
+      events : [{type: "change", task: addItemId, params: ["id"]}]
+    },
+    {
+      name   : "appName",
+      label  : "Application",
+      type   : "string",
+      default: "N/A",
+      order  : 2,
+      sort   : true,
+      source : {type: "provider"},
+    },
+    {
+      name   : "appTag",
+      label  : "Application Tag",
+      type   : "string",
+      default: "N/A",
+      order  : 3,
+      sort   : true,
+      source : {type: "provider"},
+    },
+    {
+      name   : "appCategory",
+      label  : "Application Category",
+      type   : "string",
+      default: "N/A",
+      order  : 4,
+      sort   : true,
+      source : {type: "provider", transform: categoryName},
+    },
+    {
+      name   : "accessKey",
+      label  : "Access Key",
+      type   : "string",
+      default: "N/A",
+      order  : 5,
+      sort   : true,
+      source : {type: "provider"},
+    },
+    {
+      name   : "description",
+      label  : "Description",
+      type   : "string",
+      default: "N/A",
+      order  : 6,
+      sort   : true,
+      source : {type: "provider", transform: shortDesc},
+    },
+    {
+      name   : "isActive",
+      label  : "isActive",
+      type   : "boolean",
+      default: false,
+      order  : 7,
+      sort   : false,
+      source : {type: "provider", transform: activeLabel, domComp: true},
+    },
+    {
+      name   : "update",
+      label  : "Update",
+      type   : "string",
+      default: "Update",
+      order  : 8,
+      sort   : false,
+      source : {
+        type   : "taskLink",
+        task   : updateItem,
+        params : ["item"],
+        domComp: false
+      },
+      events : [{type: "click", action: updateItem, params: ["item"]}]
+    },
+    {
+      name   : "delete",
+      label  : "Delete",
+      type   : "string",
+      default: "Delete",
+      order  : 10,
+      sort   : false,
+      source : {
+        type   : "taskLink",
+        task   : deleteItem,
+        params : ["id"],
+        domComp: false
+      },
+      events : [{type: "click", action: deleteItem, params: ["id"]}]
+    },
+  ]
+
 
 </script>
 

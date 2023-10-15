@@ -5,6 +5,11 @@
  */
 import type { CrudParamsType } from "./supportTypes";
 
+/**
+ * @typedef
+ * @param {string} key
+ * @param {any} value
+ */
 export interface ObjectType {
     [key: string]: any;
 }
@@ -18,8 +23,21 @@ export type TaskDelete = (itemId?: string) => any;
 export type Value = string | ObjectType | TaskUpdate | TaskDelete | object;
 export type ItemTaskType = Task | TaskUpdate | TaskDelete;
 
+/**
+ * @typedef
+ */
 export type DataSourceTypes = "provider" | "taskLink" | "checkbox" | "custom" | "customInfo" | "customUpdate" | "customDelete";
 
+/**
+ * @interface
+ * @param {DataSourceTypes} type        // field-value source (e.g. provider => DB, taskLink => task-action etc.)
+ * @param {Task} [task]                 // task function to be performed for task (e.g. click/update/delete)
+ * @param {Array<string>} [params]      // task function optional parameters - could be item(complete-record) or field-names (e.g. 'id')
+ * @param {Array<ObjectType>} [data]    // record from dataItems/records
+ * @param {Array<string>} [bind]        // capture arrays of records' ids for CRUD operations
+ * @param {boolean} [domComp]           // indicate if the value of the field/column is a DOM Component that may be used as HTML (e.g. v-html)
+ * @param {TransformTask} [trasform]    // transform function to transform field/column value prior-to and for table view/display
+ */
 export interface DataSource {
     type: DataSourceTypes;
     task?: Task;    // e.g addItemId
@@ -41,6 +59,18 @@ export interface EventType {
 
 export type FieldTypes = "boolean" | "string" | "number" | ObjectType | "object" | "custom";
 
+/**
+ * @typedef
+ * @param {string} name field-name from the dataItems record, must match the field-name of the dataItem Type
+ * @param {string} label label-name for the field column
+ * @param {FieldTypes} type field/column value type - "boolean" | "string" | "number" | ObjectType | "object" | "custom"
+ * @param {boolean | string | number | ObjectType | object} [default] optional default field value
+ * @param {number} order order number for the table columns
+ * @param {boolean} sort indicate if the column is sortable (ascending or descending)
+ * @param {DataSource} source the field/column value source, including optional task(action-function)
+ * @param {Array<EventType>} events events specification for the data field
+ *
+ */
 export interface DataField {
     name: string;
     label: string;
