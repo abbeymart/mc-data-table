@@ -35,6 +35,7 @@ import "@mconnect/mc-data-table/dist/style.css"
 ## Usage Specifications
 
 - You may import McDataTable, McExplorerDataTable & McTableNoData as components into your UI view/page
+- Dependencies: vue and w3-css
 
 ```ts
 import {McDataTable, McTableNoData} from "@mconnect/mc-data-table";
@@ -46,8 +47,8 @@ import type {DataField, DataFetchAlertResult} from "@mconnect/mc-data-table"
 ```vue
 
 <template>
-  <McDataTable v-if="dataItems.length > 0" :data-fields="dataFields" :data-items="dataItems" data-stats=""
-               data-fetch-alert=""/>
+  <McDataTable v-if="dataItems.length > 0" :data-fields="dataFields" :data-items="dataItems" :data-stats="dataStats"
+               :data-fetch-alert="dataFetch"></McDataTable>
 
 </template>
 
@@ -63,13 +64,14 @@ import type {DataField, DataFetchAlertResult} from "@mconnect/mc-data-table"
   const dataStats: GetRecordStats = ref({
     
   })
+  const fetchAlertResult = ref<DataFetchAlertResult>({})
 
   // Data may be fetch in batches for table-records view
   // sample dataFetch for the next skip-limit records
   const dataFetch = async (val: DataFetchAlertResult) => {
     // store fetchAlertResult
     fetchAlertResult.value = val
-    // perform the required crud-action/task
+    // perform the required read-query task using the skip and limit values from val(DataFetchAlertResult)
     if (val.fetchAlert) {
       await appStore.getAppRequest({
         skip : val.skip,
@@ -107,10 +109,7 @@ import type {DataField, DataFetchAlertResult} from "@mconnect/mc-data-table"
     await router.push({name: "appDetail", params: {itemId: itemRec.id || ""}});
   }
 
-  async
-  deleteResponse = (res: RESTAPI
-  -UserDefined_Type
-  ) =>
+  const deleteResponse = async (res: RESTAPI-UserDefined_Type) =>
   {
     // handle the deleteRecord request API response
   }
@@ -246,8 +245,7 @@ import type {DataField, DataFetchAlertResult} from "@mconnect/mc-data-table"
       events : [{type: "click", action: deleteItem, params: ["id"]}]
     },
   ]
-
-
+  
 </script>
 
 ```
