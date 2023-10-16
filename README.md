@@ -6,7 +6,7 @@
 - Easy search to view records by search keywords
 - Clear message showing the records view by query records and search keywords
 
-- **Development & Documentation In progress**
+- **Documentation In progress**
 
 ## Installation
 ```npm
