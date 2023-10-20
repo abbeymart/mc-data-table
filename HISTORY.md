@@ -1,9 +1,14 @@
 # Historical logs
 
+## Version 0.3.0
+
+- Release date: Oct ??, 2023
+- Complete README documentation-v0.3.0
+
 ## Version 0.2.0
 
 - Release date: Oct 20, 2023
-- Complete README documentation-v0.2.0
+- Refactor-sort-style-fa-to-material-icons-v0.2.0
 
 ## Version 0.1.1
 

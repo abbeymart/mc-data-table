@@ -7,9 +7,7 @@
           <th v-for="field in tableFields" :key="field.name" class="mc-tool-cursor"
               scope="col" @click.prevent="sortDataByField(field)">
             <span class="w3-left-align">{{ field.label }} </span>
-            <span v-if="field.sort" class="w3-right-align"><i :class="sortStyleAsc"> </i> <i
-                :class="sortStyleDesc"/>
-            </span>
+            <span v-if="field.sort" class="material-icons mc-table-inline-icon">{{sortStyleName}}</span>
           </th>
         </tr>
         </thead>
@@ -162,13 +160,11 @@ const computedDataItems = computed(() => {
     return itemData;
   });
 })
-// const itemsTotal = computed(() => computedDataItems.value.length)
-// extract/get value from Proxy object
-// const sortStyleCopy = {...sortStyle}
-const sortStyleAsc = computed(() => sortAsc.value ? `${unref(sortStyle).asc} mc-table-sort-style` :
-    `${unref(sortStyle).asc}`)
-const sortStyleDesc = computed(() => sortDesc.value ? `${unref(sortStyle).desc} mc-table-sort-style` :
-    `${unref(sortStyle).desc}`)
+const sortStyleName = computed(() => sortAsc.value ? `${unref(sortStyle).asc}` : `${unref(sortStyle).desc}`)
+// const sortStyleAsc = computed(() => sortAsc.value ? `${unref(sortStyle).asc} mc-table-sort-style` :
+//     `${unref(sortStyle).asc}`)
+// const sortStyleDesc = computed(() => sortDesc.value ? `${unref(sortStyle).desc} mc-table-sort-style` :
+//     `${unref(sortStyle).desc}`)
 const searchedDataItems = computed(() => {
   // search data-items by search-key: from tableFields => Proxy[Proxy...] array-of-proxy-objects
   const dataItemKeys = tableFields.value.map(item => item.name);
@@ -341,9 +337,9 @@ const eventHandler = (item: ObjectType, ev: EventType) => {
 </script>
 
 <style scoped>
-.mc-table-sort-style {
+.mc-table-inline-icon {
+  vertical-align: -6px;
   font-weight: bolder;
   background-color: #0D47A1;
 }
-
 </style>

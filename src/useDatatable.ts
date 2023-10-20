@@ -10,9 +10,12 @@ const defaultTableStyle: TableStyle = {
     tableHeader: "w3-red",
     tableBody  : "w3-hover",
 }
+// change to material icons, Oct-19-2023
+// asc : "fa fa-caret-up",  | expand_less/keyboard_arrow_up (name), material-icons (style)
+// desc: "fa fa-caret-down", | expand_more/keyboard_arrow_down (name), material-icons (style)
 const defaultSortStyle: SortStyle = {
-    asc : "fa fa-caret-up",
-    desc: "fa fa-caret-down",
+    asc : "keyboard_arrow_up",
+    desc: "keyboard_arrow_down",
 }
 const defaultPageLimits: Array<number> = [10, 20, 30, 50, 100, 200]
 const defaultPermittedEvents: Array<PermittedEvents> = ["click", "mouseover", "mouseleave", "mouseenter"]
