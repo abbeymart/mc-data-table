@@ -2,7 +2,7 @@
 
 ## Version 0.3.0
 
-- Release date: Oct ??, 2023
+- Release date: TBD
 - Complete README documentation-v0.3.0
 
 ## Version 0.2.1
