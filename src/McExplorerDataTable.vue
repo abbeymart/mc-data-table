@@ -203,4 +203,3 @@ provide("mcSetSearchItemsCount", setSearchItemsCount)
 <style scoped>
 
 </style>
-

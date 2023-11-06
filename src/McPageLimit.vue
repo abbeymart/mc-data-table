@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { inject, ref, unref } from "vue";
+import { inject, ref, unref } from "vue"
 import type { SetPageLimit } from "./types";
 
 const labelOn = ref<boolean>(false)

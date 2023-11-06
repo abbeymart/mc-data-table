@@ -7,7 +7,7 @@
           <th v-for="field in tableFields" :key="field.name" class="mc-tool-cursor"
               scope="col" @click.prevent="sortDataByField(field)">
             <span class="w3-left-align">{{ field.label }} </span>
-            <span v-if="field.sort" class="material-icons mc-table-inline-icon">{{sortStyleName}}</span>
+            <span v-if="field.sort" class="material-icons mc-table-inline-icon">{{ sortStyleName }}</span>
           </th>
         </tr>
         </thead>
@@ -72,16 +72,16 @@ import DatatableUpdate from "./templates/DatatableUpdate.vue";
 import DatatableDelete from "./templates/DatatableDelete.vue";
 import DatatableCustom from "./templates/DatatableCustom.vue";
 import { sortBy } from "lodash";
-import { computed, inject, ref, unref } from "vue";
+import { computed, inject, ref, unref } from "vue"
 import type {
   DataField, EventType, FieldItemInfo, ItemData, ItemTaskType, ObjectType, PermitSaveDelete, PermittedEvents,
   SetDataItems, SetDataItemsTotal, SortStyle, TableStyle,
 } from "./types";
 import { useDatatable } from "./useDatatable";
 
-const permitSaveDeleteMessage = inject("mcPermitSaveDeleteMessage", "Update and Delete tasks are not permitted");
-const {defaultTableStyle, defaultSortStyle,} = useDatatable();
-const sortAsc = ref<boolean>(true);
+const permitSaveDeleteMessage = inject("mcPermitSaveDeleteMessage", "Update and Delete tasks are not permitted")
+const {defaultTableStyle, defaultSortStyle,} = useDatatable()
+const sortAsc = ref<boolean>(true)
 const sortDesc = ref<boolean>(false)
 const itemsIds = ref<Array<string>>([])
 const permitSaveDelete = inject<PermitSaveDelete>("mcPermitSaveDelete")

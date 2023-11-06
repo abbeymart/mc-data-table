@@ -2,7 +2,6 @@ export interface ActionParamType {
     [key: string]: any;         // fieldName: fieldValue, must match fieldType (re: validate) in model definition
 }
 
-// @ts-ignore
 export type ActionParamsType = Array<ActionParamType>;  // documents for create or update task/operation
 
 export interface QueryParamsType {

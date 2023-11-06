@@ -5,6 +5,11 @@
 - Release date: Oct ??, 2023
 - Complete README documentation-v0.3.0
 
+## Version 0.2.1
+
+- Release date: Nov 06, 2023
+- Refactor-table-sort-style-v0.2.1
+
 ## Version 0.2.0
 
 - Release date: Oct 20, 2023
